@@ -9,7 +9,7 @@ import { Guitar, Music2, Share2 } from 'lucide-react';
 export default function CifraViewer({ musica }: { musica: any }) {
   const [instrumento, setInstrumento] = useState<'cavaquinho' | 'violao'>('cavaquinho');
   
-  // AQUI ESTAVA O ERRO: Precisamos chamar o Hook para definir a variável
+
   const { transposedContent, semitones, setSemitones } = useMusic(musica?.conteudo || "");
 
   // Extração básica de acordes (para os diagramas do topo)

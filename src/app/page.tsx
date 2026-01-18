@@ -2,6 +2,7 @@
 import SongCard  from '@/music/SongCard';
 import { useSearchParams } from 'next/navigation';
 
+
 const SAMBAS_MOCK = [
   { titulo: "Preciso Desse Amor", artista: "Exaltasamba", tom: "C", slug: "preciso-desse-amor", ritmo: "Pagode" },
   { titulo: "O Show Tem Que Continuar", artista: "Fundo de Quintal", tom: "D", slug: "o-show-tem-que-continuar", ritmo: "Samba de Raiz" },
