@@ -1,36 +1,39 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+![Next.js](https://img.shields.io/badge/Next.js-000?style=for-the-badge&logo=nextdotjs&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
 
-## Getting Started
+# 🪕 CifraSamba
 
-First, run the development server:
+Interface premium de cifras para Samba e Pagode, focada em performance e usabilidade para músicos em ambiente de palco.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## ✨ Funcionalidades
+- 🌙 **Design Moderno**: Interface Night Mode com estética baseada no Spotify.
+- 🔍 **Busca em Tempo Real**: Filtro inteligente de artistas e músicas via URL State.
+- 📜 **Auto-Scroll**: Rolagem automática com controle de velocidade variável.
+- ⚡ **Preloader**: Experiência visual fluida com animação de Clave de Sol.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Tecnologias
+- **Framework**: Next.js 15
+- **Linguagem**: TypeScript
+- **Estilização**: Tailwind CSS
+- **Ícones**: Lucide React
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+CifraSamba 🪕 > Uma plataforma premium de cifras para Samba e Pagode desenvolvida com Next.js 15+ e Tailwind CSS. Focada em performance e experiência do usuário, o projeto apresenta uma interface Night Mode com transposição de tons em tempo real, diagramas dinâmicos para cavaquinho e violão, e sistema de auto-scroll para músicos.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Opção 2: Criativa e "Lifestyle" (Ideal para a Bio do Perfil)
+CifraSamba | A batucada agora é digital. 🎶
 
-## Learn More
+Onde o samba encontra o código. Desenvolvendo a melhor experiência para músicos de samba, com busca instantânea, visual neon e ferramentas de performance feitas para quem está com o instrumento na mão.
 
-To learn more about Next.js, take a look at the following resources:
+Opção 3: Texto Completo para o About (Lateral do repositório)
+🚀 CifraSamba: Interface moderna voltada para músicos de Samba e Pagode.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+🌑 Night Mode Premium: Fundo escuro com acordes em neon para alta visibilidade no palco.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+⚙️ Smart Transpose: Troca de tom dinâmica sem recarregar a página.
 
-## Deploy on Vercel
+📜 Auto-Scroll: Rolagem automática com controle de velocidade para músicos.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+🔍 Fast Search: Filtro instantâneo por artista, música ou ritmo via URL State.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+⚡ Stack: Next.js, TypeScript, Tailwind CSS e Lucide Icons.
