@@ -23,18 +23,23 @@
   --color-card: var(--card-bg);
 }
 
+/* src/app/globals.css */
 body {
   background-color: var(--background);
   color: var(--foreground);
-  /* Adiciona um degradê radial muito suave no topo para dar profundidade */
+  /* Brilho Verde Esmeralda no topo */
   background-image: radial-gradient(
     circle at 50% -20%,
-    rgba(234, 179, 8, 0.05) 0%,
+    rgba(16, 185, 129, 0.08) 0%,
     transparent 50%
   );
   background-attachment: fixed;
-  font-family: var(--font-sans), ui-sans-serif, system-ui;
-  -webkit-font-smoothing: antialiased;
+}
+
+/* Cor de seleção de texto em verde */
+::selection {
+  background: rgba(16, 185, 129, 0.3);
+  color: #fff;
 }
 
 @layer utilities {

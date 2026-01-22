@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
 const RITMOS = [
@@ -15,31 +15,35 @@ const RITMOS = [
 
 export default function RitmosNav() {
   const [ativo, setAtivo] = useState('todos');
+  const [mounted, setMounted] = useState(false);
+
+  // Garante que o componente só mostre estados dinâmicos após carregar no cliente
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
-    <nav className="hidden md:block w-full bg-black border-b border-white/5 sticky top-16 z-40">
-      <div className="max-w-7xl mx-auto px-6 h-12 flex items-center gap-8 whitespace-nowrap">
+    <nav className="hidden md:flex fixed top-20 left-0 w-full z-40 bg-zinc-950/40 backdrop-blur-md border-b border-white/[0.05]">
+      <div className="max-w-7xl mx-auto px-6 h-12 flex items-center gap-8 overflow-x-auto scrollbar-hide">
         {RITMOS.map((ritmo) => (
           <Link
             key={ritmo.id}
             href={ritmo.slug}
             onClick={() => setAtivo(ritmo.id)}
-            className={`text-[10px] font-black uppercase tracking-[0.2em] transition-all relative h-full flex items-center ${
-              ativo === ritmo.id 
+            className={`text-[10px] font-black uppercase tracking-[0.2em] transition-all relative h-full flex items-center shrink-0 ${
+              mounted && ativo === ritmo.id 
                 ? 'text-emerald-400' 
-                : 'text-zinc-500 hover:text-zinc-300'
+                : 'text-zinc-500 hover:text-zinc-200'
             }`}
           >
             {ritmo.label}
             
-            {/* Indicador Ativo Roxo */}
-            {ativo === ritmo.id && (
-              <>
-                {/* Linha Principal */}
-                <span className="absolute bottom-0 left-0 w-full h-[2px] bg-emerald-500 z-10" />
-                {/* Brilho (Glow) da Linha */}
-                <span className="absolute bottom-0 left-0 w-full h-[4px] bg-emerald-500/40 blur-sm" />
-              </>
+            {/* O indicador verde só aparece se estiver montado para evitar erro de hidratação */}
+            {mounted && ativo === ritmo.id && (
+              <div className="absolute bottom-0 left-0 w-full flex justify-center">
+                <span className="w-full h-[2px] bg-emerald-500 z-10" />
+                <span className="absolute bottom-0 w-full h-[6px] bg-emerald-400/30 blur-md" />
+              </div>
             )}
           </Link>
         ))}

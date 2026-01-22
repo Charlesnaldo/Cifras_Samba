@@ -1,50 +1,44 @@
 'use client';
-import { Play, Sparkles, Music } from 'lucide-react';
 
-export default function Banner() {
+import { Music2, Play } from 'lucide-react';
+
+export default function Hero3D() {
   return (
-    <div className="relative w-full max-w-7xl mx-auto px-6 mt-10">
-      {/* Background com Gradientes Estáticos (Estilo Apple Music) */}
-      <div className="relative h-[300px] w-full rounded-[2.5rem] overflow-hidden bg-[#050505] border border-white/5 shadow-2xl flex items-center">
-        
-        {/* Camadas de Brilho Lilás/Roxo */}
-        <div className="absolute top-0 right-0 w-2/3 h-full bg-gradient-to-l from-emerald-600/10 to-transparent" />
-        <div className="absolute -right-10 -top-20 w-[450px] h-[450px] bg-emerald-600/20 blur-[120px] rounded-full" />
-        <div className="absolute right-[5%] bottom-[-50px] w-[300px] h-[300px] bg-emerald-500/20 blur-[100px] rounded-full" />
-
-        {/* Conteúdo à Esquerda */}
-        <div className="relative z-20 pl-12 md:pl-20 w-full md:w-3/5">
-          <div className="flex items-center gap-2 mb-4">
-             <div className="p-1.5 bg-emerald-500/20 rounded-md border border-emerald-500/30">
-               <Sparkles className="text-emerald-400" size={14} />
-             </div>
-             <span className="text-emerald-400 text-[10px] font-bold uppercase tracking-[0.3em]">
-               Novidade
-             </span>
+    <section className="relative w-full bg-zinc-950 pt-10 pb-20 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <div className="flex flex-col items-center text-center space-y-8">
+          
+          {/* Badge Superior */}
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/5 border border-emerald-500/10 animate-fade-in">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            </span>
+            <span className="text-[10px] font-bold text-emerald-500 uppercase tracking-[0.3em]">
+              O Maior Acervo de Samba
+            </span>
           </div>
 
-          <h2 className="text-4xl md:text-6xl font-black text-white leading-[1.1]">
-            O Samba <br /> 
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-violet-400 to-indigo-400">
-              agora é roxo.
-            </span>
-          </h2>
-          
-          <button className="mt-8 flex items-center gap-3 bg-white text-black px-8 py-3.5 rounded-2xl font-bold transition-all hover:bg-emerald-500 hover:text-white">
-            <Play size={18} fill="currentColor" />
-            Explorar Cifras
+          {/* Título Principal Padronizado */}
+          <h1 className="text-6xl md:text-8xl font-black text-white uppercase italic tracking-tighter leading-[0.85] max-w-4xl">
+            Toque o melhor <br />
+            <span className="font-serif italic text-emerald-500 font-light lowercase">do Samba & Pagode</span>
+          </h1>
+
+          <p className="max-w-xl text-zinc-500 text-sm md:text-base leading-relaxed font-medium">
+            Cifras precisas, dicionário de acordes e ferramentas exclusivas para elevar o seu nível no samba.
+          </p>
+
+          {/* Botão de Ação */}
+          <button className="group relative flex items-center gap-3 bg-emerald-500 text-black px-10 py-5 rounded-full font-black text-[11px] uppercase tracking-[0.2em] hover:scale-105 transition-all shadow-[0_0_30px_rgba(16,185,129,0.2)]">
+            <Play size={16} fill="currentColor" />
+            Começar a tocar
           </button>
         </div>
-
-        {/* Ícone ou Imagem Decorativa à Direita (Substituindo o 3D) */}
-        <div className="hidden md:flex absolute right-20 items-center justify-center">
-          <div className="relative">
-            <div className="absolute inset-0 bg-emerald-500/40 blur-[80px] rounded-full" />
-            <Music size={140} className="text-white/10 relative z-10 rotate-12" />
-          </div>
-        </div>
-
       </div>
-    </div>
+
+      {/* Background Decorativo */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_center,rgba(16,185,129,0.05)_0%,transparent_70%)] pointer-events-none" />
+    </section>
   );
 }
