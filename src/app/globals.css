@@ -1,31 +1,49 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Cores para o modo Light (Opcional, mas limpo) */
+  --background: #fafafa;
+  --foreground: #09090b;
+  --card-bg: rgba(255, 255, 255, 0.8);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Background "Zinc Night" - Mais limpo que o preto puro */
+    --background: #09090b; 
+    --foreground: #f4f4f5;
+    /* Fundo dos cards levemente mais claro que o fundo do site */
+    --card-bg: rgba(18, 18, 21, 0.4); 
+  }
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-card: var(--card-bg);
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  /* Adiciona um degradê radial muito suave no topo para dar profundidade */
+  background-image: radial-gradient(
+    circle at 50% -20%,
+    rgba(234, 179, 8, 0.05) 0%,
+    transparent 50%
+  );
+  background-attachment: fixed;
+  font-family: var(--font-sans), ui-sans-serif, system-ui;
+  -webkit-font-smoothing: antialiased;
 }
 
 @layer utilities {
+  /* Efeito de Vidro (Glassmorphism) para Headers e Navs */
+  .glass {
+    @apply bg-background/70 backdrop-blur-md border-b border-white/[0.05];
+  }
+
+  /* Scrollbar Minimalista */
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
@@ -35,11 +53,29 @@ body {
   }
 }
 
-@keyframes loading {
-  0% { width: 0%; }
-  100% { width: 100%; }
+/* Correção da Animação de Loading */
+@keyframes loading-progress {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
 }
 
 .animate-loading-bar {
-  animation: loading-bar 1.5s infinite ease-in-out;
+  position: relative;
+  overflow: hidden;
+}
+
+.animate-loading-bar::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(234, 179, 8, 0.2),
+    transparent
+  );
+  animation: loading-progress 1.5s infinite linear;
 }
