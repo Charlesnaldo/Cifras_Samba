@@ -4,7 +4,7 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import RitmosNav from '@/components/layout/RitmosNav';
 import './globals.css';
-import AutoScroll from '@/music/AutoScroll';
+import AutoScroll from '@/components/music/AutoScroll';
 import Hero3D from '@/components/layout/Hero3D';
 import MobileNav from '@/components/layout/MobileNav';
 

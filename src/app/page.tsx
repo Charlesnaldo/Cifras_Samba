@@ -1,6 +1,7 @@
 'use client';
-import SongCard  from '@/music/SongCard';
+import SongCard  from '@/components/music/SongCard';
 import { useSearchParams } from 'next/navigation';
+
 
 
 const SAMBAS_MOCK = [

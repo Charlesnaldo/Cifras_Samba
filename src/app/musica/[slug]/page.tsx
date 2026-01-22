@@ -1,6 +1,6 @@
 'use client';
 import { useParams } from 'next/navigation';
-import CifraViewer from '@/components/CifraViewer';
+import CifraViewer from '@/components/ui/CifraViewer';
 
 // Simulando um banco de dados de Samba
 const musicasDB = {

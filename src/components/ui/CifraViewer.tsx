@@ -2,8 +2,9 @@
 
 import { useState } from 'react';
 import { useMusic } from '@/hooks/useMusic';
-import ChordDiagram from '@/components/ChordDiagram';
-import TransposeControl from '@/components/TransposeControl';
+import ChordDiagram from '@/components/ui/ChordDiagram';
+import TransposeControl from '@/components/music/TransposeControl';
+
 import { Guitar, Music2, Share2 } from 'lucide-react';
 
 export default function CifraViewer({ musica }: { musica: any }) {
