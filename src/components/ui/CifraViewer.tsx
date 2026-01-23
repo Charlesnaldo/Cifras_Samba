@@ -1,114 +1,162 @@
 'use client';
 
-import { useState } from 'react';
-import { 
-  Maximize2, 
-  Settings2, 
-  RotateCcw, 
-  ArrowUp, 
-  ArrowDown,
-  Printer,
-  Share2,
-  Music2
-} from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { RotateCcw, ArrowUp, ArrowDown, Printer, Mic2, PlayCircle } from 'lucide-react';
+import { Musica } from '@/components/music/musicas';
 
-export default function CifraViewer({ musica }: any) {
-  const [tom, setTom] = useState(musica.tomOriginal || 'C');
+export default function CifraViewer({ musica }: { musica: Musica }) {
   const [fontSize, setFontSize] = useState(16);
+  const [tom, setTom] = useState(musica.tom);
+
+  // Mantém a comunicação com o componente AutoScroll
+  useEffect(() => {
+    window.dispatchEvent(new CustomEvent('toggle-autoscroll', { detail: { show: true } }));
+    return () => {
+      window.dispatchEvent(new CustomEvent('toggle-autoscroll', { detail: { show: false } }));
+    };
+  }, []);
+
+  const processarLinha = (linha: string) => {
+    if (linha.trim().startsWith('[') && !linha.includes('] ')) {
+      return (
+        <div className="text-[13px] font-black text-zinc-600 uppercase tracking-[0.3em] mt-10 mb-4 border-l-2 border-emerald-500 pl-4">
+          {linha.replace(/[\[\]]/g, '')}
+        </div>
+      );
+    }
+
+    const regex = /(\[[^\]]+\][^\[]*)/g;
+    const blocos = linha.split(regex).filter(Boolean);
+
+    return (
+      <div className="flex flex-wrap items-end min-h-[2.8rem]">
+        {blocos.map((bloco: string, i: number) => {
+          if (bloco.startsWith('[')) {
+            const match = bloco.match(/\[([^\]]+)\](.*)/);
+            if (match) {
+              const [_, nota, texto] = match;
+              return (
+                <div key={i} className="flex flex-col items-start leading-none">
+                  <span className="text-emerald-400 font-black text-[0.75em] mb-2 drop-shadow-[0_0_8px_rgba(16,185,129,0.5)] h-4">
+                    {nota}
+                  </span>
+                  <span className="text-zinc-300 whitespace-pre">{texto || '\u00A0'}</span>
+                </div>
+              );
+            }
+          }
+          return <span key={i} className="text-zinc-300 whitespace-pre leading-none pb-[2px]">{bloco}</span>;
+        })}
+      </div>
+    );
+  };
 
   return (
-    <div className="flex flex-col lg:flex-row gap-8 w-full max-w-7xl mx-auto px-6 py-12">
-      
-      {/* COLUNA ESQUERDA: Ferramentas (Minimalista e Verde) */}
-      <aside className="lg:w-48 order-2 lg:order-1 flex lg:flex-col gap-3 flex-wrap">
-        <div className="w-full space-y-4">
-          <p className="text-[10px] font-bold text-zinc-600 uppercase tracking-[0.2em] px-2">Ferramentas</p>
-          
-          {/* Controle de Tom */}
-          <div className="bg-zinc-900/40 backdrop-blur-sm border border-white/[0.05] rounded-3xl p-2 flex flex-col gap-1">
-            <div className="flex items-center justify-between p-3">
-              <span className="text-[10px] font-black uppercase text-zinc-500 tracking-wider">Tom</span>
-              <span className="text-sm font-black text-emerald-400 drop-shadow-[0_0_8px_rgba(16,185,129,0.4)]">{tom}</span>
-            </div>
-            <div className="flex gap-1 px-1 pb-1">
-              <button onClick={() => {}} className="flex-1 py-2 bg-zinc-800/50 rounded-xl flex justify-center hover:text-emerald-400 hover:bg-zinc-800 transition-all">
-                <ArrowDown size={14} />
-              </button>
-              <button onClick={() => {}} className="flex-1 py-2 bg-zinc-800/50 rounded-xl flex justify-center hover:text-emerald-400 hover:bg-zinc-800 transition-all">
-                <ArrowUp size={14} />
-              </button>
-            </div>
-          </div>
+    <div className="flex flex-col lg:flex-row gap-8 w-full max-w-7xl mx-auto px-2 md:px-6 py-6 md:py-12">
 
-          {/* Controle de Fonte */}
-          <div className="bg-zinc-900/40 border border-white/[0.05] rounded-3xl p-2 flex items-center justify-around">
-            <button onClick={() => setFontSize(f => Math.max(f - 1, 12))} className="p-2 text-zinc-500 hover:text-emerald-400 transition-colors font-bold">-A</button>
-            <span className="text-[10px] text-zinc-600 font-black uppercase tracking-tighter">{fontSize}px</span>
-            <button onClick={() => setFontSize(f => Math.min(f + 1, 24))} className="p-2 text-zinc-500 hover:text-emerald-400 transition-colors font-bold">+A</button>
-          </div>
+      {/* Sidebar de Ferramentas */}
+      <aside className="lg:w-52 w-full order-2 lg:order-1 px-2 md:px-0">
+        <div className="bg-zinc-900/40 border border-white/5 rounded-[2rem] p-4">
+          <p className="hidden lg:block text-[10px] font-black text-zinc-600 uppercase tracking-[0.2em] mb-4 px-2 text-center">Ajustes</p>
 
-          {/* Botões de Ação Rápida */}
-          <div className="space-y-2">
-            <button className="w-full flex items-center gap-3 p-4 bg-zinc-900/40 border border-white/[0.05] rounded-3xl text-[10px] font-black uppercase tracking-widest text-zinc-500 hover:border-emerald-500/30 hover:text-emerald-400 transition-all group">
-              <RotateCcw size={14} className="group-hover:rotate-[-45deg] transition-transform" /> Exibição Simples
+          <div className="grid grid-cols-2 lg:grid-cols-1 gap-4">
+            
+            {/* BOTÃO ADICIONADO AQUI NA SIDEBAR */}
+            <button 
+              onClick={() => window.dispatchEvent(new CustomEvent('toggle-autoscroll', { detail: { show: true } }))}
+              className="col-span-2 lg:col-span-1 flex items-center justify-center gap-2 p-3 bg-emerald-500 text-black rounded-xl text-[10px] font-black uppercase shadow-lg shadow-emerald-500/20"
+            >
+              <PlayCircle size={14} fill="currentColor" /> Auto Scroll
             </button>
-            <button className="w-full flex items-center gap-3 p-4 bg-zinc-900/40 border border-white/[0.05] rounded-3xl text-[10px] font-black uppercase tracking-widest text-zinc-500 hover:border-emerald-500/30 hover:text-emerald-400 transition-all">
-              <Printer size={14} /> Imprimir
-            </button>
+
+            <div className="flex flex-col gap-2">
+              <span className="text-[10px] font-black text-zinc-500 uppercase px-2 text-center">Tom</span>
+              <div className="flex items-center justify-between bg-zinc-800/50 rounded-xl p-2">
+                <button className="p-2 hover:text-emerald-500"><ArrowDown size={14} /></button>
+                <span className="text-emerald-400 font-black text-sm">{tom}</span>
+                <button className="p-2 hover:text-emerald-500"><ArrowUp size={14} /></button>
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <span className="text-[10px] font-black text-zinc-500 uppercase px-2 text-center">Fonte</span>
+              <div className="flex items-center justify-between bg-zinc-800/50 rounded-xl p-2">
+                <button onClick={() => setFontSize(s => s - 1)} className="p-2 hover:text-emerald-500">-</button>
+                <span className="text-zinc-300 font-bold text-xs">{fontSize}px</span>
+                <button onClick={() => setFontSize(s => s + 1)} className="p-2 hover:text-emerald-500">+</button>
+              </div>
+            </div>
+
+            <div className="col-span-2 lg:col-span-1 flex gap-2">
+              <button onClick={() => window.print()} className="flex-1 flex items-center justify-center gap-2 p-3 bg-zinc-800/50 rounded-xl text-[10px] font-black uppercase text-zinc-400 hover:text-emerald-400 transition-all">
+                <Printer size={14} /> <span className="hidden lg:inline">Imprimir</span>
+              </button>
+              <button onClick={() => setFontSize(16)} className="flex-1 flex items-center justify-center gap-2 p-3 bg-zinc-800/50 rounded-xl text-[10px] font-black uppercase text-zinc-400 hover:text-emerald-400 transition-all">
+                <RotateCcw size={14} /> <span className="hidden lg:inline">Reset</span>
+              </button>
+            </div>
           </div>
         </div>
       </aside>
 
-      {/* COLUNA CENTRAL: A Cifra */}
-      <main className="flex-1 order-1 lg:order-2">
-        <header className="mb-10">
-          <div className="flex items-center gap-4 mb-4">
-             <span className="px-4 py-1.5 bg-emerald-500 text-black text-[10px] font-black uppercase rounded-full tracking-wider shadow-lg shadow-emerald-500/20">
-               {musica.ritmo || 'Samba'}
-             </span>
-             <div className="h-px w-12 bg-zinc-800" />
-             <span className="text-zinc-600 text-[10px] font-bold uppercase tracking-widest italic">Contribuição de Mestre</span>
+      {/* Área da Música */}
+      <main className="flex-1 order-1 lg:order-2 w-full">
+        <header className="mb-8 flex justify-between items-end px-3 md:px-0">
+          <div className="space-y-2">
+            <span className="text-[10px] font-black bg-emerald-500 text-black px-6 py-1 rounded-full uppercase italic">
+              {musica.ritmo}
+            </span>
+
+            {/* Aqui altera o titulo da musica */}
+
+            <h1 className="text-2xl text-white mt-4 uppercase mt-2 tracking-tighter leading-none">
+              {musica.titulo}
+            </h1>
+            {/* Aqui altera o nome da banda */}
+
+
+            <h2 className="text-xl font-light text-zinc-500 italic uppercase tracking-widest flex items-center gap-2">
+
+              {/* Aqui altera o microfone  */}
+
+              <Mic2 size={19} className="text-emerald-500" /> {musica.artista}
+
+              {/* Aqui altera o microfone  */}
+            </h2>
           </div>
-          <h1 className="text-5xl md:text-7xl font-black text-white italic tracking-tighter uppercase leading-[0.85]">
-            {musica.titulo}
-          </h1>
-          <h2 className="text-xl md:text-2xl font-light text-zinc-500 mt-4 tracking-tight">
-            {musica.artista}
-          </h2>
+
+          {musica.fotoArtista && (
+            <div className="relative">
+              <div className="w-20 h-20 md:w-32 md:h-32 rounded-full border-2 border-emerald-500/20 p-1">
+                <img src={musica.fotoArtista} className="w-full h-full object-cover rounded-full grayscale" alt={musica.artista} />
+              </div>
+            </div>
+          )}
         </header>
 
-        {/* Área de Texto da Cifra com efeito Neon nos Acordes */}
-        <div 
-          className="cifra-content bg-zinc-900/20 border border-white/[0.05] rounded-[2.5rem] p-8 md:p-12 shadow-2xl backdrop-blur-sm"
+        {/* BOTÃO MOBILE ADICIONADO AQUI ACIMA DA CIFRA */}
+        <div className="md:hidden flex justify-center mb-4">
+          <button 
+            onClick={() => window.dispatchEvent(new CustomEvent('toggle-autoscroll', { detail: { show: true } }))}
+            className="flex items-center gap-2 px-6 py-2 bg-emerald-500 text-black rounded-full text-[10px] font-black uppercase tracking-widest"
+          >
+            <PlayCircle size={10} fill="currentColor" /> Iniciar Rolagem
+          </button>
+        </div>
+
+        <div
+          className="bg-zinc-900/70 border border-white/5 rounded-[2rem] md:rounded-[3rem] p-5 md:p-10 font-mono shadow-1xl"
           style={{ fontSize: `${fontSize}px` }}
         >
-          <pre className="font-mono text-zinc-300 leading-[2.2] whitespace-pre-wrap overflow-x-auto selection:bg-emerald-500/30">
-            {/* O conteúdo virá do banco de dados. Exemplo de renderização com realce: */}
-            <span className="text-emerald-400 font-black drop-shadow-[0_0_10px_rgba(16,185,129,0.5)]">C7M          Am7</span><br />
-            O amor é feito de paixões<br />
-            <span className="text-emerald-400 font-black drop-shadow-[0_0_10px_rgba(16,185,129,0.5)]">Dm7          G7</span><br />
-            E quando perde a razão...
-          </pre>
-        </div>
-      </main>
-
-      {/* COLUNA DIREITA: Dicionário de Acordes */}
-      <aside className="lg:w-64 order-3 hidden xl:block">
-        <div className="sticky top-24 space-y-6">
-          <p className="text-[10px] font-bold text-zinc-600 uppercase tracking-[0.2em] px-2">Dicionário de Acordes</p>
-          <div className="grid grid-cols-2 gap-3">
-            {['C7M', 'Am7', 'Dm7', 'G7'].map(chord => (
-              <div key={chord} className="bg-zinc-900/40 border border-white/[0.05] rounded-3xl p-4 flex flex-col items-center gap-3 hover:border-emerald-500/30 transition-all cursor-pointer group hover:bg-zinc-900/60">
-                <span className="text-xs font-black text-zinc-500 group-hover:text-emerald-400 transition-colors uppercase tracking-tighter">{chord}</span>
-                <div className="w-full aspect-[3/4] bg-zinc-950/50 rounded-2xl flex items-center justify-center border border-zinc-800 group-hover:border-emerald-500/20 transition-all">
-                   <div className="text-[8px] text-zinc-700 font-bold uppercase tracking-widest group-hover:text-zinc-500">SVG Chord</div>
-                </div>
+          <div className="w-full break-words">
+            {musica.conteudo.split('\n').map((linha: string, idx: number) => (
+              <div key={idx} className="mb-2">
+                {processarLinha(linha)}
               </div>
             ))}
           </div>
         </div>
-      </aside>
-
+      </main>
     </div>
   );
 }
