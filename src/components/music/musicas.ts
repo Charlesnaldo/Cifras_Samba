@@ -20,7 +20,7 @@ export const MUSICAS: Musica[] = [
     tom: 'F',
     dificuldade: 'Média',
     slug: 'ta-escrito-revelacao',
-    cifra: `c
+    cifra: `
 [Intro] [ ] [F]
 [Primeira Parte]
 [F] Quem cultiva a semente do amor [C] Segue em frente não se apa[Bb]vora
