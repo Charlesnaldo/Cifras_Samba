@@ -6,29 +6,27 @@ import ArtistasPopulares from '@/components/music/ArtistasPopulares';
 import NossasAulas from '@/components/layout/NossasAulas';
 import MaisTocadas from '@/components/music/MaisTocadas';
 import { SearchX, RotateCcw } from 'lucide-react';
+import Hero3D from '@/components/layout/Hero3D';
+import { MUSICAS } from '@/components/music/musicas'
 
 // MOCK de dados integrado ao padrão do componente
-const SAMBAS_MOCK = [
-  { titulo: "Preciso Desse Amor", artista: "Exaltasamba", tom: "C", slug: "preciso-desse-amor", ritmo: "Pagode", dificuldade: "Média" as const },
-  { titulo: "O Show Tem Que Continuar", artista: "Fundo de Quintal", tom: "D", slug: "o-show-tem-que-continuar", ritmo: "Samba de Raiz", dificuldade: "Fácil" as const },
-  { titulo: "Samba de Arerê", artista: "Revelação", tom: "G", slug: "samba-de-arere", ritmo: "Pagode", dificuldade: "Média" as const },
-];
 
 export default function Home() {
   const searchParams = useSearchParams();
   const query = searchParams.get('q')?.toLowerCase() || '';
 
-  const musicasFiltradas = SAMBAS_MOCK.filter(m => 
+  const musicasFiltradas = MUSICAS.filter(m => 
     m.titulo.toLowerCase().includes(query) || 
     m.artista.toLowerCase().includes(query)
   );
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-12 space-y-20">
+    <div className="max-w-5xl mx-auto px-6 py-5 space-y-20">
       
       {/* 1. Visão Inicial: Mostra o Ranking e Artistas se não houver busca */}
       {!query && (
         <>
+          
           <MaisTocadas />
           <ArtistasPopulares />
         </>

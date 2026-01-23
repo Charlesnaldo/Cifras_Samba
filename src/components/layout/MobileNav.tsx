@@ -5,10 +5,12 @@ import { Home, Search, Library, User, Guitar, X, Play, Pause, ChevronUp, Chevron
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { MUSICAS } from '@/components/music/musicas';
+import LoginModal from '@/components/auth/LoginModal'; // Certifique-se que o caminho está correto
 
 export default function MobileNav() {
   const pathname = usePathname();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isLoginOpen, setIsLoginOpen] = useState(false); // Novo estado para o Modal
   const [termo, setTermo] = useState('');
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -127,7 +129,7 @@ export default function MobileNav() {
             <span className="text-[10px] font-black uppercase">Buscar</span>
           </button>
 
-          {/* Botão Central: Se estiver em uma cifra, vira PLAY/PAUSE. Se não, vira CRIAR */}
+          {/* Botão Central */}
           {isCifraPage ? (
             <button 
               onClick={() => setIsScrolling(!isScrolling)} 
@@ -150,12 +152,22 @@ export default function MobileNav() {
             <span className={`text-[10px] font-black uppercase ${pathname === '/cifras' ? 'text-emerald-500' : 'text-zinc-500'}`}>Cifras</span>
           </Link>
 
-          <Link href="/login" className="flex flex-col items-center justify-center flex-1 h-full gap-1">
-            <User size={20} className={pathname === '/login' ? 'text-emerald-500' : 'text-zinc-500'} />
-            <span className={`text-[10px] font-black uppercase ${pathname === '/login' ? 'text-emerald-500' : 'text-zinc-500'}`}>Login</span>
-          </Link>
+          {/* Botão de Login que abre o Modal */}
+          <button 
+            onClick={() => setIsLoginOpen(true)} 
+            className="flex flex-col items-center justify-center flex-1 h-full gap-1 text-zinc-500"
+          >
+            <User size={20} />
+            <span className="text-[10px] font-black uppercase">Login</span>
+          </button>
         </div>
       </nav>
+
+      {/* Renderização do Modal de Login */}
+      <LoginModal 
+        isOpen={isLoginOpen} 
+        onClose={() => setIsLoginOpen(false)} 
+      />
     </>
   );
 }

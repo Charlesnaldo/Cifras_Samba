@@ -5,18 +5,29 @@ import { ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 
 export default function ArtistasPopulares() {
+  // Contagem de cifras por artista
   const contagemArtistas = (MUSICAS || []).reduce((acc: { [key: string]: number }, musica) => {
     acc[musica.artista] = (acc[musica.artista] || 0) + 1;
     return acc;
   }, {});
 
+  // Criamos o ranking e buscamos a foto de cada artista na lista original
   const topArtistas = Object.entries(contagemArtistas)
-    .map(([nome, total]) => ({ nome, total }))
+    .map(([nome, total]) => {
+      // Busca a primeira ocorrência do artista para pegar a fotoArtista
+      const dadosArtista = MUSICAS.find(m => m.artista === nome);
+      return { 
+        nome, 
+        total, 
+        foto: dadosArtista?.fotoArtista || '/hero/hero.jpg' // Fallback caso não tenha foto
+      };
+    })
     .sort((a, b) => b.total - a.total)
     .slice(0, 5);
 
   return (
     <section className="w-full">
+      {/* Cabeçalho */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
         <div className="space-y-2">
           <h2 className="text-[10px] font-bold text-zinc-500 uppercase tracking-[0.3em]">
@@ -38,6 +49,7 @@ export default function ArtistasPopulares() {
         </Link>
       </div>
 
+      {/* Grid de Artistas com Foto */}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:flex md:flex-wrap gap-10 md:gap-16">
         {topArtistas.map((artista) => (
           <Link 
@@ -46,12 +58,17 @@ export default function ArtistasPopulares() {
             className="group flex flex-col items-center md:items-start gap-4 transition-all"
           >
             <div className="relative">
-              <div className="w-24 h-24 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center transition-all duration-500 group-hover:border-emerald-500/40 group-hover:shadow-[0_0_25px_rgba(16,185,129,0.15)]">
-                <span className="text-2xl font-light text-zinc-600 group-hover:text-emerald-500 transition-colors">
-                  {artista.nome.charAt(0)}
-                </span>
+              {/* Círculo com a Foto do Artista */}
+              <div className="w-24 h-24 rounded-full bg-zinc-900 border border-zinc-800 overflow-hidden transition-all duration-500 group-hover:border-emerald-500/40 group-hover:shadow-[0_0_25px_rgba(16,185,129,0.2)]">
+                <img 
+                  src={artista.foto} 
+                  alt={artista.nome} 
+                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-105 group-hover:scale-110"
+                />
               </div>
-              <div className="absolute -top-1 -right-1 h-6 w-6 flex items-center justify-center bg-emerald-500 text-[10px] font-black text-black rounded-full shadow-lg shadow-emerald-500/20">
+
+              {/* Badge com total de cifras */}
+              <div className="absolute -top-1 -right-1 h-6 w-6 flex items-center justify-center bg-emerald-500 text-[10px] font-black text-black rounded-full shadow-lg shadow-emerald-500/30 z-10">
                 {artista.total}
               </div>
             </div>

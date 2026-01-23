@@ -24,7 +24,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
           {!isMusicPage ? (
             /* No Mobile: pt-0 (Hero cola no topo) | No Desktop: pt-44 (Espaço para Header + Nav) */
-            <div className="pt-0 md:pt-44 flex flex-col">
+            <div className="pt-0 md:pt-8 flex flex-col">
               <RitmosNav />
               <Hero3D />
             </div>

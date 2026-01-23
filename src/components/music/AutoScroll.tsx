@@ -52,10 +52,10 @@ export default function AutoScroll() {
   if (!showControls) return null;
 
   return (
-    <div className="fixed bottom-28 right-6 z-[2000] pointer-events-none flex flex-col items-end gap-3 animate-in fade-in slide-in-from-right-4">
+    <div className="fixed bottom-5 right-6 z-[2000] pointer-events-none flex flex-col items-end gap-3 animate-in fade-in slide-in-from-right-4">
       <div className={`
-        pointer-events-auto bg-zinc-950/90 backdrop-blur-2xl border border-white/10 shadow-2xl transition-all duration-500
-        ${active ? 'p-1.5 rounded-full' : 'p-3 rounded-[2rem]'}
+        pointer-events-auto bg-zinc-950/10 backdrop-blur-2xl border border-white/10 shadow-3xl transition-all duration-500
+        ${active ? 'p-1.3 rounded-full' : 'p-3 rounded-[2rem]'}
       `}>
         <div className={`flex flex-col items-center gap-4 ${active ? 'opacity-40 hover:opacity-100 transition-opacity' : ''}`}>
           
@@ -84,7 +84,7 @@ export default function AutoScroll() {
 
           <button 
             onClick={() => setActive(!active)}
-            className={`flex items-center justify-center transition-all ${active ? 'w-10 h-10 bg-emerald-500/20 text-emerald-500 rounded-full' : 'w-12 h-12 bg-emerald-500 text-black rounded-2xl'}`}
+            className={`flex cursor-pointer items-center justify-center transition-all ${active ? 'w-8 h-8 bg-emerald-500/20 text-emerald-500 rounded-full' : 'w-12 h-12 bg-emerald-500 text-black rounded-2xl'}`}
           >
             {active ? <Pause size={20} fill="currentColor" /> : <Play size={22} fill="currentColor" className="ml-1" />}
           </button>

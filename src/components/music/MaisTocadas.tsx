@@ -2,60 +2,82 @@
 
 import { Play, TrendingUp } from 'lucide-react';
 import Link from 'next/link';
-
-const MAIS_TOCADAS_MOCK = [
-  { titulo: "Preciso Desse Amor", artista: "Exaltasamba", slug: "preciso-desse-amor", tom: "C" },
-  { titulo: "O Show Tem Que Continuar", artista: "Fundo de Quintal", slug: "o-show-tem-que-continuar", tom: "D" },
-  { titulo: "Samba de Arerê", artista: "Revelação", slug: "samba-de-arere", tom: "G" },
-];
+import { MUSICAS } from '@/components/music/musicas'; // Importando seus dados reais
 
 export default function MaisTocadas() {
+  // Pegamos as primeiras 4 músicas como exemplo de "Mais Tocadas"
+  const maisTocadas = MUSICAS.slice(0, 12);
+
   return (
-    <section className="w-full">
-      {/* Cabeçalho Padronizado */}
+    <section className="w-full py-12">
+      {/* Cabeçalho com Badge de Tendência */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-        <div className="space-y-2">
-          <h2 className="text-[10px] font-bold text-zinc-500 uppercase tracking-[0.3em]">
-            Ranking Semanal
-          </h2>
-          <h3 className="text-4xl font-black text-white uppercase italic tracking-tighter leading-none">
-            Mais <span className="font-serif italic text-emerald-500 font-light lowercase">tocadas</span>
+        <div className="space-y-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20">
+            <TrendingUp size={12} className="text-emerald-500" />
+            <span className="text-[9px] font-black text-emerald-500 uppercase tracking-[0.2em]">
+              Ranking Semanal
+            </span>
+          </div>
+          <h3 className="text-4xl md:text-4xl font-black text-white uppercase italic tracking-tighter leading-none">
+            As mais <span className="font-serif italic text-emerald-500 font-light lowercase">tocadas</span>
           </h3>
         </div>
+        
+        <Link href="/cifras" className="text-[10px] font-black text-zinc-500 uppercase tracking-widest hover:text-emerald-500 transition-colors border-b border-zinc-800 pb-1">
+          Ver ranking completo
+        </Link>
       </div>
 
-      {/* Lista de Ranking */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-4">
-        {MAIS_TOCADAS_MOCK.map((musica, index) => (
+      {/* Grid de Ranking Estilizado */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-3">
+        {maisTocadas.map((musica, index) => (
           <Link 
-            key={musica.slug} 
+            key={musica.id} 
             href={`/musica/${musica.slug}`}
-            className="group flex items-center gap-6 p-4 rounded-3xl hover:bg-zinc-900/40 border border-transparent hover:border-white/[0.05] transition-all duration-300"
+            className="group relative flex items-center gap-4 md:gap-6 p-3 md:p-4 rounded-[2rem] hover:bg-zinc-900/40 border border-transparent hover:border-white/[0.05] transition-all duration-500"
           >
-            {/* Posição Numerada */}
-            <span className="text-4xl font-black text-zinc-800 group-hover:text-emerald-500/20 transition-colors italic tracking-tighter">
-              0{index + 1}
-            </span>
+            {/* Posição Numerada com Efeito de profundidade */}
+            <div className="relative flex items-center justify-center min-w-[40px]">
+              <span className="text-3xl md:text-4xl font-black text-zinc-800/50 group-hover:text-emerald-500/10 transition-colors italic tracking-tighter">
+                {index + 1}
+              </span>
+            </div>
+
+            {/* Capa do Artista/Música Dinâmica */}
+            <div className="relative w-14 h-14 md:w-16 md:h-16 rounded-2xl overflow-hidden shadow-xl border border-white/5">
+                <img 
+                  src={musica.fotoArtista || '/hero/hero.jpg'} 
+                  alt={musica.artista}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors" />
+            </div>
 
             {/* Informações da Música */}
             <div className="flex-1 min-w-0">
-              <h4 className="text-lg font-black text-zinc-200 group-hover:text-emerald-400 transition-colors uppercase italic tracking-tighter truncate">
+              <h4 className="text-base md:text-lg font-black text-zinc-200 group-hover:text-emerald-400 transition-colors uppercase italic tracking-tighter truncate">
                 {musica.titulo}
               </h4>
-              <p className="text-sm text-zinc-500 font-medium">{musica.artista}</p>
+              <p className="text-[11px] md:text-xs text-zinc-500 font-bold uppercase tracking-wider truncate">
+                {musica.artista}
+              </p>
             </div>
 
-            {/* Tom e Botão de Ação */}
-            <div className="flex items-center gap-4">
-              <div className="hidden sm:flex flex-col items-end">
-                <span className="text-[9px] text-zinc-600 font-bold uppercase tracking-widest">Tom</span>
-                <span className="text-xs font-mono font-bold text-zinc-400">{musica.tom}</span>
+            {/* Tom e Botão Play */}
+            <div className="flex items-center gap-4 pr-2">
+              <div className="hidden sm:flex flex-col items-end opacity-40 group-hover:opacity-100 transition-opacity">
+                <span className="text-[8px] text-zinc-600 font-black uppercase tracking-tighter italic">Tom</span>
+                <span className="text-xs font-mono font-black text-emerald-500/80 italic">{musica.tom}</span>
               </div>
               
-              <div className="w-10 h-10 rounded-full bg-zinc-900 flex items-center justify-center text-zinc-500 group-hover:bg-emerald-500 group-hover:text-black group-hover:shadow-[0_0_15px_rgba(16,185,129,0.3)] transition-all">
-                <Play size={16} fill="currentColor" className="ml-0.5" />
+              <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-zinc-900 border border-white/5 flex items-center justify-center text-zinc-500 group-hover:bg-emerald-500 group-hover:text-black group-hover:shadow-[0_0_20px_rgba(16,185,129,0.4)] transition-all duration-300">
+                <Play size={18} fill="currentColor" className="ml-1 transition-transform group-hover:scale-110" />
               </div>
             </div>
+
+            {/* Brilho sutil no fundo ao passar o mouse */}
+            <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/0 via-emerald-500/[0.02] to-emerald-500/0 opacity-0 group-hover:opacity-100 transition-opacity rounded-[2rem] pointer-events-none" />
           </Link>
         ))}
       </div>
