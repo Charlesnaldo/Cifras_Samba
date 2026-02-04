@@ -2,7 +2,7 @@
 
 import { Play, TrendingUp } from 'lucide-react';
 import Link from 'next/link';
-import { MUSICAS } from '@/components/music/musicas'; // Importando seus dados reais
+import { MUSICAS } from ".";
 
 export default function MaisTocadas() {
   // Pegamos as primeiras 4 músicas como exemplo de "Mais Tocadas"
@@ -19,7 +19,7 @@ export default function MaisTocadas() {
               Ranking Semanal
             </span>
           </div>
-          <h3 className="text-4xl md:text-4xl font-black text-foreground uppercase italic tracking-tighter leading-none">
+          <h3 className="text-3xl md:text-3xl font-black text-foreground italic tracking-tighter leading-none">
             As mais <span className="font-serif italic text-emerald-500 font-light lowercase">tocadas</span>
           </h3>
         </div>

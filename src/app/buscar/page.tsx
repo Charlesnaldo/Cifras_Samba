@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import { MUSICAS } from '@/components/music/musicas';
+import { MUSICAS } from "@/components/music";
 import SongCard from '@/components/music/SongCard';
 import { Search, SlidersHorizontal, X } from 'lucide-react';
 
@@ -15,10 +15,10 @@ export default function BuscarPage() {
   // Lógica de filtragem com useMemo para performance
   const musicasFiltradas = useMemo(() => {
     return MUSICAS.filter(musica => {
-      const correspondeBusca = 
+      const correspondeBusca =
         musica.titulo.toLowerCase().includes(busca.toLowerCase()) ||
         musica.artista.toLowerCase().includes(busca.toLowerCase());
-      
+
       const correspondeRitmo = ritmoAtivo === 'Todos' || musica.ritmo === ritmoAtivo;
 
       return correspondeBusca && correspondeRitmo;
@@ -28,7 +28,7 @@ export default function BuscarPage() {
   return (
     <div className="min-h-screen bg-black pt-24 px-6 pb-20">
       <div className="max-w-7xl mx-auto">
-        
+
         {/* Header de Busca */}
         <div className="mb-12 space-y-6">
           <h1 className="text-4xl font-black text-white italic uppercase tracking-tighter">
@@ -38,7 +38,7 @@ export default function BuscarPage() {
           {/* Barra de Pesquisa */}
           <div className="relative group">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500 group-focus-within:text-yellow-500 transition-colors" size={20} />
-            <input 
+            <input
               type="text"
               placeholder="Busque por música ou artista..."
               value={busca}
@@ -61,11 +61,10 @@ export default function BuscarPage() {
               <button
                 key={ritmo}
                 onClick={() => setRitmoAtivo(ritmo)}
-                className={`px-6 py-2 rounded-xl text-sm font-bold whitespace-nowrap transition-all ${
-                  ritmoAtivo === ritmo 
-                  ? 'bg-yellow-500 text-black shadow-[0_0_20px_rgba(234,179,8,0.3)]' 
-                  : 'bg-zinc-900 text-zinc-400 hover:bg-zinc-800'
-                }`}
+                className={`px-6 py-2 rounded-xl text-sm font-bold whitespace-nowrap transition-all ${ritmoAtivo === ritmo
+                    ? 'bg-yellow-500 text-black shadow-[0_0_20px_rgba(234,179,8,0.3)]'
+                    : 'bg-zinc-900 text-zinc-400 hover:bg-zinc-800'
+                  }`}
               >
                 {ritmo}
               </button>

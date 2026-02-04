@@ -15,7 +15,7 @@ export const MUSICAS: Musica[] = [
     id: '1',
     titulo: 'Tá Escrito',
     artista: 'Grupo Revelação',
-    fotoArtista: '/artistas/revelacao.jpg', // Exemplo URL
+    fotoArtista: '/artistas/revelacao.jpg', 
     ritmo: 'Samba de Raiz',
     tom: 'F',
     dificuldade: 'Média',
@@ -56,7 +56,7 @@ Sua [C] hora vai che[F]gar
     id: '2',
     titulo: 'O Show Tem Que Continuar',
     artista: 'Fundo de Quintal',
-    fotoArtista: '/artistas/fundodequintal.webp', // Exemplo URL
+    fotoArtista: '/artistas/fundodequintal.webp', 
     ritmo: 'Samba de Raiz',
     tom: 'C',
     dificuldade: 'Fácil',
@@ -97,5 +97,51 @@ Nosso amor vai [Dm7(9)] conti[G7(13)]nuar[  ] [ ] [Gm7] [  ] [ ][C7(9)]
 
 [F#m7(5-)] Lalaia lalaia laia [Fm6] [Em7] Lalaia lalaia laia [Eb°] [Dm7(9)] Lalaia Lalaia [G7(13)] [Gm7] [C7(9)] Laia
 `
-  }
+  },
+  {
+    id: '3', 
+    titulo: 'Iracema',
+    artista: 'Adoniran Barbosa',
+    fotoArtista: '/artistas/adoniran-barbosa.jfif',
+    ritmo: 'Samba de Raiz',
+    tom: 'Dm',
+    dificuldade: 'Fácil',
+    slug: 'iracema',
+    cifra: `
+
+   [Intro] 
+   [Dm]  [D7]  [Gm]  [Dm]  [A#7]  [A7]  [Dm]  [A7]
+
+[Primeira Parte]
+[Dm]Iracema,[A7] eu nunca mais eu[Dm] te vi
+[D7] Iracema meu grande amor foi em[Gm]bora
+Chorei, [A7] eu chorei de [Dm] dor porque
+Ira[A#7]cema meu grande [A7] amor foi vo[Dm]cê [A7]
+
+[Segunda Parte]
+[Dm] Iracema,[A7] eu sempre di[Dm]zia
+Cuidado ao atra[D7]vessar essas [Gm] ruas
+Eu fa[A7]lava, mas você não escu[Dm]tava não
+Ira[A#7]cema você atra[A7]vessou na contra [Dm] mão [D7]
+
+[Refrão]
+E [Gm] hoje ela vive la no [Dm] céu
+E ela [A7] vive bem juntinho de nosso se[Am7(5-)]nhor [D7]
+De lem[Gm]brança [C] guardo so[F]mente
+Suas meias e seu sa[Dm]pato
+Ira[A#7]cema eu per[A7]di o seu re[Dm]trato
+
+[Interlúdio]
+[Dm] [D7] [Gm] [Dm] [A#7] [A7] [Dm] [A7]
+
+[Refrão Final]
+E [Gm] hoje ela vive lá no [Dm] céu
+E ela [A7] vive juntinho de nosso se[Am7(5-)]nhor [D7]
+De lem[Gm]brança [C] guardo so[F]mente
+Suas meias e seu sa[Dm]pato
+Ira[A#7]cema eu per[A7]di o seu re[Dm]trato
+
+[Final] [Gm] [Dm] [A7] [Dm] [D7]`
+}
+
 ];

@@ -1,6 +1,6 @@
 'use client';
 
-import { MUSICAS } from '@/components/music/musicas';
+import { MUSICAS } from ".";
 import { ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 
@@ -33,7 +33,7 @@ export default function ArtistasPopulares() {
           <h2 className="text-[10px] font-bold text-zinc-500 uppercase tracking-[0.3em]">
             Explorar Catálogo
           </h2>
-          <h3 className="text-4xl font-black text-foreground uppercase italic tracking-tighter leading-none">
+          <h3 className="text-4xl font-black text-foreground  italic tracking-tighter leading-none">
             Artistas <span className="font-serif italic text-emerald-500 font-light lowercase">populares</span>
           </h3>
         </div>

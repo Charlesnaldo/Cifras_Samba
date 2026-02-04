@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { Home, Search, Library, User, Guitar, X, Play, Pause, ChevronUp, ChevronDown } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { MUSICAS } from '@/components/music/musicas';
+import { MUSICAS } from "../music";
 import LoginModal from '@/components/auth/LoginModal'; // Certifique-se que o caminho está correto
 
 export default function MobileNav() {

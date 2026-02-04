@@ -2,7 +2,7 @@
 
 import { useParams } from 'next/navigation';
 import CifraViewer from '@/components/ui/CifraViewer';
-import { MUSICAS } from '@/components/music/musicas'; // <-- IMPORTANDO DO SEU ARQUIVO
+import { MUSICAS } from "@/components/music";
 import { Music2, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 
@@ -20,7 +20,7 @@ export default function SongPage() {
         <div className="w-20 h-20 rounded-full bg-zinc-900 border border-white/[0.05] flex items-center justify-center text-emerald-500/20">
           <Music2 size={40} />
         </div>
-        
+
         <div className="text-center space-y-2">
           <h1 className="text-2xl font-black text-white uppercase italic tracking-tighter">
             Cifra não <span className="text-emerald-500">encontrada</span>
@@ -30,8 +30,8 @@ export default function SongPage() {
           </p>
         </div>
 
-        <Link 
-          href="/" 
+        <Link
+          href="/"
           className="mt-4 flex items-center gap-2 px-8 py-4 bg-emerald-500 text-black font-black text-[10px] uppercase tracking-[0.2em] rounded-full hover:scale-105 transition-all shadow-lg shadow-emerald-500/20"
         >
           <ArrowLeft size={14} />

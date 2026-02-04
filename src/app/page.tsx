@@ -8,7 +8,7 @@ import MaisTocadas from '@/components/music/MaisTocadas';
 import { SearchX, RotateCcw } from 'lucide-react';
 import Hero3D from '@/components/layout/Hero3D';
 import LocalBandsCTA from '@/components/music/LocalBandsCTA';
-import { MUSICAS } from '@/components/music/musicas'
+import { MUSICAS } from "@/components/music";
 
 // MOCK de dados integrado ao padrão do componente
 
@@ -46,7 +46,7 @@ export default function Home() {
             <h2 className="text-[10px] font-bold text-zinc-500 uppercase tracking-[0.3em]">
               {query ? 'Pesquisa de Catálogo' : 'Repertório Geral'}
             </h2>
-            <h3 className="text-4xl md:text-5xl font-black text-foreground uppercase italic tracking-tighter leading-none">
+            <h3 className="text-3xl md:text-4xl font-black text-foreground  italic tracking-tighter leading-none">
               {query ? (
                 <>Resultados para: <span className="text-emerald-500">{query}</span></>
               ) : (
