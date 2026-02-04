@@ -1,35 +1,42 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import SongCard from '@/components/music/SongCard';
 import ArtistasPopulares from '@/components/music/ArtistasPopulares';
 import NossasAulas from '@/components/layout/NossasAulas';
 import MaisTocadas from '@/components/music/MaisTocadas';
 import { SearchX, RotateCcw } from 'lucide-react';
 import Hero3D from '@/components/layout/Hero3D';
+import LocalBandsCTA from '@/components/music/LocalBandsCTA';
 import { MUSICAS } from '@/components/music/musicas'
 
 // MOCK de dados integrado ao padrão do componente
 
 export default function Home() {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const query = searchParams.get('q')?.toLowerCase() || '';
 
-  const musicasFiltradas = MUSICAS.filter(m => 
-    m.titulo.toLowerCase().includes(query) || 
+  const musicasFiltradas = MUSICAS.filter(m =>
+    m.titulo.toLowerCase().includes(query) ||
     m.artista.toLowerCase().includes(query)
   );
 
   return (
     <div className="max-w-5xl mx-auto px-6 py-5 space-y-20">
-      
+
       {/* 1. Visão Inicial: Mostra o Ranking e Artistas se não houver busca */}
       {!query && (
         <>
-          
+
           <MaisTocadas />
           <ArtistasPopulares />
         </>
+      )}
+
+      {/* Seção Bandas Locais (Aparece se não tiver busca) */}
+      {!query && (
+        <LocalBandsCTA />
       )}
 
       {/* 2. Seção de Músicas / Resultados */}
@@ -39,7 +46,7 @@ export default function Home() {
             <h2 className="text-[10px] font-bold text-zinc-500 uppercase tracking-[0.3em]">
               {query ? 'Pesquisa de Catálogo' : 'Repertório Geral'}
             </h2>
-            <h3 className="text-4xl md:text-5xl font-black text-white uppercase italic tracking-tighter leading-none">
+            <h3 className="text-4xl md:text-5xl font-black text-foreground uppercase italic tracking-tighter leading-none">
               {query ? (
                 <>Resultados para: <span className="text-emerald-500">{query}</span></>
               ) : (
@@ -60,7 +67,7 @@ export default function Home() {
           {musicasFiltradas.length > 0 ? (
             musicasFiltradas.map((musica) => (
               <SongCard key={musica.slug} {...musica} />
-            ) )
+            ))
           ) : (
             /* Estado Vazio (Empty State) Verde */
             <div className="col-span-full py-24 flex flex-col items-center justify-center border border-dashed border-zinc-800 rounded-[3rem] bg-zinc-950/30 group">
@@ -70,8 +77,8 @@ export default function Home() {
               <p className="text-zinc-500 font-medium italic text-lg">
                 Nenhum samba encontrado com esse nome...
               </p>
-              <button 
-                onClick={() => window.location.href = '/'}
+              <button
+                onClick={() => router.push('/')}
                 className="mt-6 flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-emerald-500 hover:text-white transition-all bg-emerald-500/5 px-6 py-3 rounded-full border border-emerald-500/20"
               >
                 <RotateCcw size={14} />
@@ -88,7 +95,7 @@ export default function Home() {
           <NossasAulas />
         </div>
       )}
-      
+
       {/* Footer Spacer */}
       <div className="h-12" />
     </div>

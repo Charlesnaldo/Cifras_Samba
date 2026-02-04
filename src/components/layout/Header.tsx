@@ -1,9 +1,11 @@
 'use client';
-import { useState } from 'react';
-import { Search, Music2, User, Bell, ChevronLeft } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Search, Music2, User, ChevronLeft, Instagram, Youtube, Facebook } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import LoginModal from '@/components/auth/LoginModal';
+import { useDebounce } from '@/hooks/useDebounce';
+import { useTheme } from '@/components/layout/ThemeContext';
 
 interface HeaderProps {
   isMinimized?: boolean;
@@ -12,35 +14,48 @@ interface HeaderProps {
 export default function Header({ isMinimized }: HeaderProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { theme, toggleTheme } = useTheme();
   const [isLoginOpen, setIsLoginOpen] = useState(false);
 
-  const handleSearch = (term: string) => {
-    const params = new URLSearchParams(searchParams.toString());
-    if (term) params.set('q', term);
-    else params.delete('q');
-    router.push(`/?${params.toString()}`);
-  };
+  // State local para o input
+  const [term, setTerm] = useState(searchParams.get('q') || '');
+  const debouncedTerm = useDebounce(term, 500);
+
+  // Sincroniza o input com a URL (caso o usuário navegue ou recarregue)
+  useEffect(() => {
+    setTerm(searchParams.get('q') || '');
+  }, [searchParams]);
+
+  // Efeito que dispara a navegação quando o termo do debounce muda
+  useEffect(() => {
+    // Evita loop de redirecionamento ao navegar para outras páginas
+    // Só dispara se o usuário estiver digitando realmente
+    const currentQuery = new URLSearchParams(window.location.search).get('q') || '';
+
+    if (debouncedTerm !== currentQuery) {
+      // Se o termo ficou vazio e não estamos na home, não faz nada (foi navegação)
+      if (!debouncedTerm && window.location.pathname !== '/') return;
+
+      const params = new URLSearchParams(window.location.search);
+      if (debouncedTerm) {
+        params.set('q', debouncedTerm);
+        router.push(`/?${params.toString()}`);
+      } else {
+        params.delete('q');
+        // Se limpou e tá na home, atualiza a url
+        if (window.location.pathname === '/') {
+          router.push('/');
+        }
+      }
+    }
+  }, [debouncedTerm, router]);
 
   return (
     <>
-      {/* Estilo Injetado para a animação (Caso o Tailwind não tenha o keyframe) */}
-      <style jsx global>{`
-        @keyframes shimmer {
-          0% { transform: translateX(-150%) skewX(-20deg); }
-          100% { transform: translateX(150%) skewX(-20deg); }
-        }
-        .animate-shimmer {
-          animation: shimmer 10s infinite linear;
-        }
-        .animate-shimmer-fast {
-          animation: shimmer 2s infinite linear;
-        }
-      `}</style>
-
       <header
         className={`hidden md:flex fixed top-0 z-[60] w-full transition-all duration-500 overflow-hidden ${isMinimized
-            ? 'h-14 bg-zinc-950/90 border-b border-zinc-900'
-            : 'h-20 bg-zinc-950/40 backdrop-blur-md border-b border-white/[0.05]'
+          ? 'h-14 bg-zinc-950/90 border-b border-zinc-900'
+          : 'h-20 bg-zinc-950/40 backdrop-blur-md border-b border-white/[0.05]'
           }`}
       >
         {/* Camada de Luz Espelhada passando por trás de tudo */}
@@ -65,7 +80,7 @@ export default function Header({ isMinimized }: HeaderProps) {
               <div className="bg-emerald-500 p-1.5 rounded-lg transition-transform group-hover:rotate-12 shadow-[0_0_15px_rgba(16,185,129,0.3)]">
                 <Music2 className="text-black" size={isMinimized ? 16 : 20} strokeWidth={2.5} />
               </div>
-              <span className={`font-black tracking-tighter text-white uppercase italic transition-all ${isMinimized ? 'text-base' : 'text-xl'
+              <span className={`font-black tracking-tighter text-foreground uppercase italic transition-all ${isMinimized ? 'text-base' : 'text-xl'
                 }`}>
                 Cifra<span className="text-emerald-500">Samba</span>
               </span>
@@ -80,13 +95,27 @@ export default function Header({ isMinimized }: HeaderProps) {
               placeholder="O que você quer tocar?"
               className="w-full bg-zinc-900/40 border border-zinc-800/50 text-zinc-200 py-2.5 px-12 rounded-xl text-sm focus:outline-none focus:border-emerald-500/40 focus:ring-1 focus:ring-emerald-500/20 transition-all"
               // ADICIONE ESTAS DUAS LINHAS ABAIXO:
-              onChange={(e) => handleSearch(e.target.value)}
-              defaultValue={searchParams.get('q') || ''}
+              // ADICIONE ESTAS DUAS LINHAS ABAIXO:
+              onChange={(e) => setTerm(e.target.value)}
+              value={term}
             />
           </div>
 
           {/* Perfil / Login com Luz Própria */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-4">
+            {/* Redes Sociais */}
+            <div className="hidden lg:flex items-center gap-2 pr-4 border-r border-zinc-800">
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="p-2 text-zinc-400 hover:text-pink-500 transition-colors">
+                <Instagram size={18} />
+              </a>
+              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="p-2 text-zinc-400 hover:text-red-500 transition-colors">
+                <Youtube size={18} />
+              </a>
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="p-2 text-zinc-400 hover:text-blue-500 transition-colors">
+                <Facebook size={18} />
+              </a>
+            </div>
+
             <button
               onClick={() => setIsLoginOpen(true)}
               className="relative overflow-hidden flex items-center gap-2 bg-zinc-900 border border-zinc-800 px-4 py-2 rounded-xl hover:border-emerald-500/50 transition-all group"

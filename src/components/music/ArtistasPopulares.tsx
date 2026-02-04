@@ -16,9 +16,9 @@ export default function ArtistasPopulares() {
     .map(([nome, total]) => {
       // Busca a primeira ocorrência do artista para pegar a fotoArtista
       const dadosArtista = MUSICAS.find(m => m.artista === nome);
-      return { 
-        nome, 
-        total, 
+      return {
+        nome,
+        total,
         foto: dadosArtista?.fotoArtista || '/hero/hero.jpg' // Fallback caso não tenha foto
       };
     })
@@ -33,13 +33,13 @@ export default function ArtistasPopulares() {
           <h2 className="text-[10px] font-bold text-zinc-500 uppercase tracking-[0.3em]">
             Explorar Catálogo
           </h2>
-          <h3 className="text-4xl font-black text-white uppercase italic tracking-tighter leading-none">
+          <h3 className="text-4xl font-black text-foreground uppercase italic tracking-tighter leading-none">
             Artistas <span className="font-serif italic text-emerald-500 font-light lowercase">populares</span>
           </h3>
         </div>
-        
-        <Link 
-          href="/buscar" 
+
+        <Link
+          href="/buscar"
           className="group flex items-center gap-2 text-[10px] font-black text-zinc-500 hover:text-emerald-500 transition-colors tracking-widest"
         >
           VER TUDO
@@ -52,7 +52,7 @@ export default function ArtistasPopulares() {
       {/* Grid de Artistas com Foto */}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:flex md:flex-wrap gap-10 md:gap-16">
         {topArtistas.map((artista) => (
-          <Link 
+          <Link
             key={artista.nome}
             href={`/buscar?artista=${encodeURIComponent(artista.nome)}`}
             className="group flex flex-col items-center md:items-start gap-4 transition-all"
@@ -60,9 +60,9 @@ export default function ArtistasPopulares() {
             <div className="relative">
               {/* Círculo com a Foto do Artista */}
               <div className="w-24 h-24 rounded-full bg-zinc-900 border border-zinc-800 overflow-hidden transition-all duration-500 group-hover:border-emerald-500/40 group-hover:shadow-[0_0_25px_rgba(16,185,129,0.2)]">
-                <img 
-                  src={artista.foto} 
-                  alt={artista.nome} 
+                <img
+                  src={artista.foto}
+                  alt={artista.nome}
                   className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-105 group-hover:scale-110"
                 />
               </div>

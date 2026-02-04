@@ -48,26 +48,26 @@ export default function MobileNav() {
     return () => window.removeEventListener('scroll', controlNavbar);
   }, [lastScrollY, isScrolling]);
 
-  const resultados = MUSICAS.filter(m => 
+  const resultados = MUSICAS.filter(m =>
     m.titulo.toLowerCase().includes(termo.toLowerCase()) ||
     m.artista.toLowerCase().includes(termo.toLowerCase())
   );
 
   // Verificamos se estamos em uma página de cifra para mostrar o botão de scroll
-  const isCifraPage = pathname.includes('/cifra/');
+  const isCifraPage = pathname.includes('/musica/');
 
   return (
     <>
       {/* Botões Flutuantes de Velocidade (Só aparecem se o Auto Scroll estiver ativo) */}
       {isScrolling && (
         <div className="fixed right-6 bottom-28 z-[1000] flex flex-col gap-2 animate-in fade-in slide-in-from-right">
-          <button 
+          <button
             onClick={() => setScrollSpeed(prev => Math.max(5, prev - 5))}
             className="p-3 bg-emerald-500 text-black rounded-full shadow-lg"
           >
             <ChevronUp size={20} strokeWidth={3} />
           </button>
-          <button 
+          <button
             onClick={() => setScrollSpeed(prev => prev + 5)}
             className="p-3 bg-zinc-800 text-white rounded-full shadow-lg border border-white/10"
           >
@@ -87,7 +87,7 @@ export default function MobileNav() {
           </div>
           <div className="relative mb-6">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500" size={20} />
-            <input 
+            <input
               autoFocus
               type="text"
               placeholder="Música ou artista..."
@@ -97,9 +97,9 @@ export default function MobileNav() {
           </div>
           <div className="flex-1 overflow-y-auto space-y-3">
             {termo.length > 0 && resultados.map(musica => (
-              <Link 
-                key={musica.id} 
-                href={`/cifra/${musica.slug}`}
+              <Link
+                key={musica.id}
+                href={`/musica/${musica.slug}`}
                 onClick={() => setIsSearchOpen(false)}
                 className="block bg-zinc-900/50 p-4 rounded-xl border border-white/5"
               >
@@ -112,13 +112,12 @@ export default function MobileNav() {
       )}
 
       {/* Barra de Navegação */}
-      <nav 
-        className={`md:hidden fixed bottom-0 left-0 right-0 z-[999] px-4 pb-6 pt-2 pointer-events-none transition-all duration-500 ease-in-out ${
-          isVisible || isScrolling ? 'translate-y-0 opacity-100' : 'translate-y-24 opacity-0'
-        }`}
+      <nav
+        className={`md:hidden fixed bottom-0 left-0 right-0 z-[999] px-4 pb-6 pt-2 pointer-events-none transition-all duration-500 ease-in-out ${isVisible || isScrolling ? 'translate-y-0 opacity-100' : 'translate-y-24 opacity-0'
+          }`}
       >
         <div className="bg-zinc-900/90 backdrop-blur-xl border border-white/10 h-16 rounded-2xl flex items-center justify-around px-2 shadow-2xl pointer-events-auto">
-          
+
           <Link href="/" className="flex flex-col items-center justify-center flex-1 h-full gap-1">
             <Home size={20} className={pathname === '/' ? 'text-emerald-500' : 'text-zinc-500'} />
             <span className={`text-[10px] font-black uppercase ${pathname === '/' ? 'text-emerald-500' : 'text-zinc-500'}`}>Início</span>
@@ -131,8 +130,8 @@ export default function MobileNav() {
 
           {/* Botão Central */}
           {isCifraPage ? (
-            <button 
-              onClick={() => setIsScrolling(!isScrolling)} 
+            <button
+              onClick={() => setIsScrolling(!isScrolling)}
               className="relative -top-5"
             >
               <div className={`${isScrolling ? 'bg-red-500' : 'bg-emerald-500'} p-3 rounded-full border-4 border-[#09090b] shadow-lg transition-colors`}>
@@ -153,8 +152,8 @@ export default function MobileNav() {
           </Link>
 
           {/* Botão de Login que abre o Modal */}
-          <button 
-            onClick={() => setIsLoginOpen(true)} 
+          <button
+            onClick={() => setIsLoginOpen(true)}
             className="flex flex-col items-center justify-center flex-1 h-full gap-1 text-zinc-500"
           >
             <User size={20} />
@@ -164,9 +163,9 @@ export default function MobileNav() {
       </nav>
 
       {/* Renderização do Modal de Login */}
-      <LoginModal 
-        isOpen={isLoginOpen} 
-        onClose={() => setIsLoginOpen(false)} 
+      <LoginModal
+        isOpen={isLoginOpen}
+        onClose={() => setIsLoginOpen(false)}
       />
     </>
   );
