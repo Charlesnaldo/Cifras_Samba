@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React from 'react';
 import Image from 'next/image';
@@ -51,7 +51,8 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative bg-zinc-950 pt-24 pb-12 overflow-hidden border-t border-white/5">
+    <footer className="relative bg-transparent pt-24 pb-12 overflow-hidden border-t border-white/5">
+      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-transparent via-zinc-950/45 to-zinc-950/70" />
       {/* Linha de luz Esmeralda */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-[1px] bg-gradient-to-r from-transparent via-emerald-500/50 to-transparent" />
       

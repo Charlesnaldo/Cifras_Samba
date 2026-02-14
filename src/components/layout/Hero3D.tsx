@@ -17,12 +17,13 @@ const quickLinks = [
 
 export default function Hero3D() {
   return (
-    <section className="relative min-h-[88vh] md:min-h-[92vh] overflow-hidden bg-zinc-950">
-      <div className="absolute inset-0 z-0 bg-gradient-to-b from-zinc-950 via-zinc-900 to-zinc-950" />
+    <section className="relative min-h-[88vh] md:min-h-[92vh] overflow-hidden">
+      <div className="absolute inset-0 z-0 bg-gradient-to-b from-zinc-950 via-zinc-900/90 to-transparent" />
       <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_20%_18%,rgba(16,185,129,0.20),transparent_35%)]" />
       <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_80%_78%,rgba(16,185,129,0.10),transparent_35%)]" />
 
       <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[42rem] h-[42rem] rounded-full bg-emerald-500/10 blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-b from-transparent to-zinc-900/20 pointer-events-none" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 pt-32 md:pt-40 pb-16">
         <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-12 items-end">

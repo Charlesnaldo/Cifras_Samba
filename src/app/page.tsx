@@ -9,7 +9,7 @@ import { SearchX, RotateCcw } from 'lucide-react';
 import LocalBandsCTA from '@/components/music/LocalBandsCTA';
 import { MUSICAS } from "@/components/music";
 
-// MOCK de dados integrado ao padr?o do componente
+// MOCK de dados integrado ao padrão do componente
 
 export default function Home() {
   const searchParams = useSearchParams();
@@ -24,7 +24,7 @@ export default function Home() {
   return (
     <div className="max-w-5xl mx-auto px-6 py-5 space-y-20">
 
-      {/* 1. Vis?o Inicial: Mostra o Ranking e Artistas se n?o houver busca */}
+      {/* 1. Visão Inicial: Mostra o Ranking e Artistas se não houver busca */}
       {!query && (
         <>
 
@@ -33,17 +33,17 @@ export default function Home() {
         </>
       )}
 
-      {/* Se??o Bandas Locais (Aparece se n?o tiver busca) */}
+      {/* Seção Bandas Locais (Aparece se não tiver busca) */}
       {!query && (
         <LocalBandsCTA />
       )}
 
-      {/* 2. Se??o de M?sicas / Resultados */}
+      {/* 2. Seção de Músicas / Resultados */}
       <section id="search-results" className="space-y-10">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-zinc-900 pb-8">
           <div className="space-y-2">
             <h2 className="text-[10px] font-bold text-zinc-500 uppercase tracking-[0.3em]">
-              {query ? 'Pesquisa de Cat?logo' : 'Repert?rio Geral'}
+              {query ? 'Pesquisa de Catálogo' : 'Repertório Geral'}
             </h2>
             <h3 className="text-3xl md:text-4xl font-black text-foreground  italic tracking-tighter leading-none">
               {query ? (
@@ -88,7 +88,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 3. Se??o Final: Aulas (Aparece apenas quando n?o est? buscando para manter o foco) */}
+      {/* 3. Seção Final: Aulas (Aparece apenas quando não está buscando para manter o foco) */}
       {!query && (
         <div className="pt-12 border-t border-zinc-900">
           <NossasAulas />
