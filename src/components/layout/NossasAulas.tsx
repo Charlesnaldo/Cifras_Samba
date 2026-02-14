@@ -3,6 +3,7 @@
 import { AULAS } from '@/data/aulas';
 import { Play, ArrowUpRight } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function NossasAulas() {
   return (
@@ -19,7 +20,7 @@ export default function NossasAulas() {
         
         <Link 
           href="/aulas" 
-          className="group flex items-center gap-2 text-[11px] font-bold text-zinc-500 hover:text-white transition-all tracking-widest uppercase"
+          className="group flex items-center gap-2 text-[11px] font-bold text-zinc-500 hover:text-white transition-all tracking-widest uppercase focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 rounded-md"
         >
           Ver catálogo completo
           <ArrowUpRight size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
@@ -33,14 +34,16 @@ export default function NossasAulas() {
             key={aula.id} 
             href={aula.urlYoutube} 
             target="_blank" 
-            className="group relative bg-zinc-900/40 border border-zinc-800/50 rounded-2xl overflow-hidden transition-all duration-300 hover:bg-zinc-900 hover:border-zinc-700 shadow-sm"
+            className="group relative bg-zinc-900/40 border border-zinc-800/50 rounded-2xl overflow-hidden transition-all duration-300 hover:bg-zinc-900 hover:border-zinc-700 shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
           >
             {/* Thumbnail Minimalista */}
             <div className="relative aspect-video overflow-hidden">
               {aula.thumbnail ? (
-                <img 
-                  src={aula.thumbnail} 
+                <Image
+                  src={aula.thumbnail}
                   alt={aula.titulo}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
               ) : (

@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import Link from 'next/link';
 import { Music2, ChevronRight } from 'lucide-react';
@@ -8,11 +8,17 @@ interface SongCardProps {
   artista: string;
   ritmo: string;
   tom: string;
-  dificuldade?: 'Fácil' | 'Média' | 'Difícil';
+  dificuldade?: 'Facil' | 'Media' | 'Dificil';
   slug: string;
 }
 
-export default function SongCard({ titulo, artista, ritmo, tom, dificuldade = 'Média', slug }: SongCardProps) {
+const dificuldadeLabel: Record<'Facil' | 'Media' | 'Dificil', string> = {
+  Facil: 'Fácil',
+  Media: 'Média',
+  Dificil: 'Difícil',
+};
+
+export default function SongCard({ titulo, artista, ritmo, tom, dificuldade = 'Media', slug }: SongCardProps) {
   return (
     <Link href={`/musica/${slug}`} className="group block">
       <div className="bg-zinc-900/40 backdrop-blur-sm border border-white/[0.05] p-6 rounded-[2.5rem] hover:bg-zinc-900/60 hover:border-emerald-500/30 transition-all duration-500">
@@ -22,7 +28,7 @@ export default function SongCard({ titulo, artista, ritmo, tom, dificuldade = 'M
             <Music2 size={20} />
           </div>
           <span className="text-[9px] font-black uppercase px-3 py-1 rounded-full border border-white/10 text-zinc-500 group-hover:border-emerald-500/30 group-hover:text-emerald-400 transition-colors">
-            {dificuldade}
+            {dificuldadeLabel[dificuldade]}
           </span>
         </div>
 

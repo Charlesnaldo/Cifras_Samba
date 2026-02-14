@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Upload, Youtube, Users, Phone, Music, MapPin, CheckCircle2, Loader2, Image as ImageIcon, ChevronRight, ChevronLeft } from 'lucide-react';
+import { Upload, Youtube, Music, MapPin, CheckCircle2, Loader2, Image as ImageIcon, ChevronRight, ChevronLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 export default function BandRegistrationForm() {

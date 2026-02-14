@@ -3,51 +3,66 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  /* Forçando Modo Dark Global */
+  /* Global dark mode palette */
   --background: #09090b;
   --foreground: #f4f4f5;
   --card-bg: rgba(18, 18, 21, 0.4);
+  --accent: #10b981;
+  --accent-strong: #34d399;
+  --accent-muted: rgba(16, 185, 129, 0.2);
+  --accent-soft: rgba(16, 185, 129, 0.08);
+  --accent-contrast: #09090b;
+  --warning: #eab308;
+  --danger: #ef4444;
 }
 
-/* Redundância para garantir */
+/* Keep dark mode as default */
 .dark,
 :root:not(.light) {
   --background: #09090b;
   --foreground: #f4f4f5;
   --card-bg: rgba(18, 18, 21, 0.4);
+  --accent: #10b981;
+  --accent-strong: #34d399;
+  --accent-muted: rgba(16, 185, 129, 0.2);
+  --accent-soft: rgba(16, 185, 129, 0.08);
+  --accent-contrast: #09090b;
+  --warning: #eab308;
+  --danger: #ef4444;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card-bg);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
 }
 
-/* src/app/globals.css */
 body {
   background-color: var(--background);
   color: var(--foreground);
-  /* Brilho Verde Esmeralda no topo */
+  /* Emerald glow on top */
   background-image: radial-gradient(circle at 50% -20%,
-      rgba(16, 185, 129, 0.08) 0%,
+      var(--accent-soft) 0%,
       transparent 50%);
   background-attachment: fixed;
 }
 
-/* Cor de seleção de texto em verde */
 ::selection {
   background: rgba(16, 185, 129, 0.3);
   color: #fff;
 }
 
 @layer utilities {
-
-  /* Efeito de Vidro (Glassmorphism) para Headers e Navs */
+  /* Glass effect for header/navigation */
   .glass {
     @apply bg-background/70 backdrop-blur-md border-b border-white/[0.05];
   }
 
-  /* Scrollbar Minimalista */
+  /* Minimal scrollbar */
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
@@ -58,7 +73,7 @@ body {
   }
 }
 
-/* Correção da Animação de Loading */
+/* Loading animation */
 @keyframes loading-progress {
   0% {
     transform: translateX(-100%);
@@ -83,12 +98,12 @@ body {
   height: 100%;
   background: linear-gradient(90deg,
       transparent,
-      rgba(234, 179, 8, 0.2),
+      color-mix(in srgb, var(--warning) 20%, transparent),
       transparent);
   animation: loading-progress 1.5s infinite linear;
 }
 
-/* Animações de Shimmer (Movidas do Header) */
+/* Shimmer animations */
 @keyframes shimmer {
   0% {
     transform: translateX(-150%) skewX(-20deg);

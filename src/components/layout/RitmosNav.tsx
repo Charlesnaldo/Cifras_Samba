@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 
 const RITMOS = [
@@ -15,12 +15,6 @@ const RITMOS = [
 
 export default function RitmosNav() {
   const [ativo, setAtivo] = useState('todos');
-  const [mounted, setMounted] = useState(false);
-
-  // Garante que o componente só mostre estados dinâmicos após carregar no cliente
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   return (
     <nav className="hidden md:flex fixed top-20 left-0 w-full z-40 bg-zinc-950/40 backdrop-blur-md border-b border-white/[0.05]">
@@ -31,18 +25,15 @@ export default function RitmosNav() {
             href={ritmo.slug}
             onClick={() => setAtivo(ritmo.id)}
             className={`text-[10px] font-black uppercase tracking-[0.2em] transition-all relative h-full flex items-center shrink-0 ${
-              mounted && ativo === ritmo.id 
-                ? 'text-emerald-400' 
-                : 'text-zinc-500 hover:text-zinc-200'
+              ativo === ritmo.id ? 'text-accent-strong' : 'text-zinc-500 hover:text-zinc-200'
             }`}
           >
             {ritmo.label}
-            
-            {/* O indicador verde só aparece se estiver montado para evitar erro de hidratação */}
-            {mounted && ativo === ritmo.id && (
+
+            {ativo === ritmo.id && (
               <div className="absolute bottom-0 left-0 w-full flex justify-center">
-                <span className="w-full h-[2px] bg-emerald-500 z-10" />
-                <span className="absolute bottom-0 w-full h-[6px] bg-emerald-400/30 blur-md" />
+                <span className="w-full h-[2px] bg-accent z-10" />
+                <span className="absolute bottom-0 w-full h-[6px] bg-accent-strong/30 blur-md" />
               </div>
             )}
           </Link>
